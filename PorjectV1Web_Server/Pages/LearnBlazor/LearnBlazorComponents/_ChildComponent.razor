@@ -1,0 +1,41 @@
+﻿
+<div>
+    <div class="alert alert-info"> @Title</div>
+    <div class="alert alert-success">
+        @if(DangerChildContent!= null)
+        {
+            <span>@DangerChildContent</span>
+        }
+        else
+        {
+            <span>No</span>
+        }
+        @if (ChildContent != null)
+        {
+            <span>@ChildContent</span>
+        }
+        else
+        {
+            <span> Hello, from Empty Render Fragment</span>
+        }
+    </div>
+    <button class="btn btn-danger" @onclick="OnButtonClick">Button to be clicked</button> <br />
+</div>
+
+
+
+@code {
+    [Parameter]
+    public string Title { set; get; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } @* To allow display inside components in parentComponent *@
+
+    [Parameter]
+    public RenderFragment DangerChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback OnButtonClick { get; set; }  
+    @*Simpler Way to Invoke Callbacks*@
+
+}
