@@ -1,0 +1,22 @@
+﻿
+<div>
+    <h4 class="text-primary pt-3">Another Child Component</h4>
+    <input id="nametemp" @attributes="InputAttributes" placeholder="Child Placeholder"/>
+    @* <input id="nametemp" placeholder="Child Placeholder" @attributes="InputAttributes" />  @attributes is displayed in this case*@
+</div>
+
+
+@code {
+    // [Parameter]
+    // public string Placeholder { set; get; } = "Initial Text";
+
+    // [Parameter]
+    // public string Required { get; set; } = "required";
+
+    // [Parameter]
+    // public string MaxLength { get; set; } = "10";
+
+    [Parameter(CaptureUnmatchedValues = true)] @* capture all attributes rather then defining them one for one*@
+    public Dictionary<string, object> InputAttributes { get; set; } = new Dictionary<string, object>();
+
+}

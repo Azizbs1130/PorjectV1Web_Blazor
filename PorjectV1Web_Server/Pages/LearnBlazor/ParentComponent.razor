@@ -2,13 +2,26 @@
 
 <h3>Parent Child Relation</h3>
 
-<_ChildComponent Title="This title is passed as parameter from Parent Component" OnButtonClick="ShowMessage">
+<CascadingValue Value="@MessageForGrandChild" Name="Message1"> @* CascadingValue helps pass paramteres from parent to child or grandchild components*@
+<CascadingValue Value="@MessageForGrandChild2" Name="Message2">
+<CascadingValue Value="@LuckyNumber">
+    <_ChildComponent @ref="childComp" Title="This title is passed as parameter from Parent Component" OnButtonClick="ShowMessage">
     @* Any content passed here need to be declared in ChildComponent, see example*@
+
     <ChildContent> Render Fragement From Parent! WooHOO! </ChildContent>
     <DangerChildContent> Danger Content from Render Fragement! WooHOO!</DangerChildContent>
 </_ChildComponent>
-
+</CascadingValue>
+    </CascadingValue>
+</CascadingValue>
 <p><b>@messageText</b></p>
+
+<_AnotherChildComponent placeholder="Enter Name From Parent"></_AnotherChildComponent>
+<br />
+<div class="row">
+    <button class="btn btn-success m-2" style="width:200px;" @onclick="()=>childComp.ToastrSuccess()">Show Toastr</button>
+    <button class="btn btn-success m-2" style="width:200px;" @onclick="()=>childComp.SweetAlertSuccess()">Show SweetAlert</button>
+</div>
 
 @* <_ChildComponent Title="This is second child component">
     @* Any content passed here need to be declared in ChildComponent, see example
@@ -16,6 +29,12 @@
 </_ChildComponent> *@
 
 @code {
+    private _ChildComponent childComp;  @* This is done to access all methods inside ChildCompenent, needs to be referenced in tag*@
+
+    public string MessageForGrandChild = "This message is from your parent (_ParentComponent)";
+    public string MessageForGrandChild2 = "Check the code to see the changes need to be done if we have 2 strings as Cascading Parameter";
+    @* Check name attribute in Cascading Value*@
+    public int LuckyNumber = 7;
     public string messageText = "";
 
     private void ShowMessage()
